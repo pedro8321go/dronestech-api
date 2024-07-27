@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DronesTechAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6693426533ad9c735849f80d46026a9adb498eca")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0597541e3e156ea6706eff73511b13c23debdc42")]
 [assembly: System.Reflection.AssemblyProductAttribute("DronesTechAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DronesTechAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
