@@ -1,6 +1,49 @@
+
+###
 @DronesTechAPI_HostAddress = http://localhost:5236
 
-GET {{DronesTechAPI_HostAddress}}/weatherforecast/
+GET {{DronesTechAPI_HostAddress}}/api/drones
 Accept: application/json
 
 ###
+POST {{DronesTechAPI_HostAddress}}/api/drones
+Content-Type: application/json
+
+{
+  "serialNumber": "ADF-456-DG",
+  "deviceModel": "peso crucero",
+  "limitWeight": 400,
+  "batteryCapacity": 30,
+  "state": "REGRESANDO"
+}
+
+###
+POST {{DronesTechAPI_HostAddress}}/api/Drones/ADF-456-DA/load
+Content-Type: application/json
+
+[
+  {
+    "name": "Fumarato_Ferroso",
+    "weight": 450,
+    "code": "ADS_349",
+    "image": "fumarato.jpg"
+  },
+  {
+    "name": "Acido_Folico",
+    "weight": 20,
+    "code": "ADS_345",
+    "image": "acido-folico.jpg"
+  }
+]
+
+###
+GET {{DronesTechAPI_HostAddress}}/api/drones/available
+Accept: application/json
+
+###
+GET {{DronesTechAPI_HostAddress}}/api/drones/ADF-456-DA/battery
+Accept: application/json
+
+###
+GET {{DronesTechAPI_HostAddress}}/api/drones/ADF-456-DA/weight
+Accept: application/json
