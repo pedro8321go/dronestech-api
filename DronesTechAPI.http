@@ -12,8 +12,8 @@ Content-Type: application/json
 {
   "serialNumber": "ADF-456-DG",
   "deviceModel": "peso crucero",
-  "limitWeight": 400,
-  "batteryCapacity": 30,
+  "limitWeight": 578,
+  "batteryCapacity": 300,
   "state": "REGRESANDO"
 }
 

@@ -1,4 +1,6 @@
-﻿using DronesTechAPI.Models;
+﻿using DronesTechAPI.Dtos.Drone;
+using DronesTechAPI.Dtos.Medicine;
+using DronesTechAPI.Models;
 using DronesTechAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,8 +12,18 @@ public class DronesController: ControllerBase
 {
     // register new drone
     [HttpPost]
-    public IActionResult RegisterDrone(Drone drone)
+    public IActionResult RegisterDrone([FromBody] DroneDto droneDto)
     {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+        var drone = new Drone
+        {
+            SerialNumber = droneDto.SerialNumber,
+            DeviceModel = droneDto.DeviceModel,
+            LimitWeight = droneDto.LimitWeight,
+            BatteryCapacity = droneDto.BatteryCapacity,
+            State = droneDto.State
+        };
         var tmpDrone = DroneService.Get(drone.SerialNumber);
         if (tmpDrone != null)
             return BadRequest("A drone with this serial number exist. Please change this parameters");
@@ -23,8 +35,10 @@ public class DronesController: ControllerBase
     
     // Load drone with medicine
     [HttpPost("{serialNumber}/load")]
-    public IActionResult LoadDrone(string serialNumber, List<Medicine> medicines)
+    public IActionResult LoadDrone(string serialNumber, [FromBody] List<MedicineDto> medicinesDto)
     {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
         var drone = DroneService.Get(serialNumber);
         if (drone == null)
             return NotFound("Drone not found");
@@ -32,6 +46,15 @@ public class DronesController: ControllerBase
             return BadRequest("Drone is busy. You can't load medicine.");
         if (drone.State != "CARGANDO" && drone.BatteryCapacity < 25)
             return BadRequest("The battery level must be above 25%");
+
+        var medicines = medicinesDto.Select(m => new Medicine
+        {
+            Name = m.Name,
+            Weight = m.Weight,
+            Code = m.Code,
+            Image = m.Image
+        }).ToList();
+        
         var totalWeight = drone.Medicines.Sum(m => m.Weight) + medicines.Sum(m => m.Weight);
         if (totalWeight > drone.LimitWeight)
             return BadRequest("The weight of the load exceeds the permitted limit");
